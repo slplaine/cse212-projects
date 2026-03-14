@@ -11,20 +11,29 @@ public class CustomerService {
         // Test Cases
 
         // Test 1
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Create queue with invalid size
+        // Expected Result: Queue size should default to 10
         Console.WriteLine("Test 1");
+        var cs1 = new CustomerService(0);
+        Console.WriteLine(cs1);
 
         // Defect(s) Found: 
-
+        //Check if max_size becomes 10 when invalid size is provided
         Console.WriteLine("=================");
 
         // Test 2
-        // Scenario: 
-        // Expected Result: 
+        // Scenario:Add customers until queue is full
+        // Expected Result: Error message when trying to add more customers than max size
         Console.WriteLine("Test 2");
+        var cs2 = new CustomerService(2);
+        cs2.AddNewCustomer();
+        cs2.AddNewCustomer();
+        cs2.AddNewCustomer(); // should show queue full message
+
+        Console.WriteLine(cs2);
 
         // Defect(s) Found: 
+        // Queue allows more customers than max size (comparison bug)
 
         Console.WriteLine("=================");
 
