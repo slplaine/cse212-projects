@@ -15,3 +15,4 @@
         }
     }
 }
+//A função SortArray tem complexidade de tempo O(n²).

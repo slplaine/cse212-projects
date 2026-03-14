@@ -1,4 +1,17 @@
-﻿using System.Diagnostics;
+﻿// -----------------------------------------------------------------------------
+// This file contains two search functions for sorted lists:
+// - SearchSorted1: performs a linear search, checking each element until the
+//   target is found or the list ends. Time complexity: O(n).
+// - SearchSorted2: performs a recursive binary search, dividing the list in half
+//   each step until the target is found or the search space is empty.
+//   Time complexity: O(log n).
+//
+// Summary: SearchSorted2 is significantly more efficient than SearchSorted1
+// for large lists.
+// -----------------------------------------------------------------------------
+
+
+using System.Diagnostics;
 
 public static class Search {
     public static void Run() {
