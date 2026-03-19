@@ -24,5 +24,29 @@
         }
 
         return true;
+
+        // =========================================================
+        // 🟢 IMPROVED SOLUTION USING SET → O(n)
+        // =========================================================
+        /*
+        // A set stores only unique values
+        var set = new HashSet<char>();
+
+        // Loop through each letter only once
+        foreach (var letter in text) {
+
+            // If letter already exists → duplicate found
+            if (set.Contains(letter))
+                return false;
+
+            // Otherwise, add letter to the set
+            set.Add(letter);
+        }
+
+        // If no duplicates found
+        return true;
+        */
     }
 }
+
+
