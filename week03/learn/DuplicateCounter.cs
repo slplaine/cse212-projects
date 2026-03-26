@@ -25,6 +25,15 @@
     private static int CountDuplicates(int[] data)
     {
         // Add code here.
-        return 0;
+        HashSet<int> uniqueValues = new HashSet<int>();//Cria um conjunto vazio para armazenar os valores únicos.
+        int duplicateCount = 0;//Inicializa um contador de duplicatas com zero.
+        foreach (int value in data)//percorre cada valor na coleção de dados.
+        {
+            if (!uniqueValues.Add(value))//insere o valor no conjunto de valores únicos. Se o valor já estiver presente, o método Add retorna false.
+            {
+                duplicateCount++;//Se o valor já estiver presente, incrementa o contador de duplicatas.
+            }
+     }
+        return duplicateCount;//retornamos o número total de duplicatas encontradas.
     }
 }
