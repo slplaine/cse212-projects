@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.IO;
 
 public static class SetsAndMaps
 {
@@ -22,8 +23,31 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        var set = new HashSet<string>(words);
+        var result = new List<string>();
+        foreach (var word in words)
+        {
+            // Ignore cases like "aa"
+            if (word[0] == word[1])
+                continue;
+
+            // Reverse the word
+            var reversed = $"{word[1]}{word[0]}";
+            // Check if the reversed word exists
+            if (set.Contains(reversed))
+            {
+                // Avoid duplicates (only one direction)
+                if (string.Compare(word, reversed) < 0)
+                {
+                    result.Add($"{word} & {reversed}");
+                }
+            }
+        }
+
+        return result.ToArray();
     }
+
+    
 
     /// <summary>
     /// Read a census file and summarize the degrees (education)
@@ -39,14 +63,36 @@ public static class SetsAndMaps
     public static Dictionary<string, int> SummarizeDegrees(string filename)
     {
         var degrees = new Dictionary<string, int>();
+
         foreach (var line in File.ReadLines(filename))
         {
+            // Split the line into fields using comma as separator
             var fields = line.Split(",");
-            // TODO Problem 2 - ADD YOUR CODE HERE
-        }
 
+            // Ensure the line has at least 4 columns
+            if (fields.Length > 3)
+            {
+                // Get the degree from the 4th column (index 3)
+                var degree = fields[3];
+
+                // Check if the degree already exists in the dictionary
+                if (degrees.ContainsKey(degree))
+                {
+                    // Increment the count
+                    degrees[degree]++;
+                }
+                else
+                {
+                    // Add the degree with initial count of 1
+                    degrees[degree] = 1;
+                }
+            }
+        }
         return degrees;
     }
+
+    
+
 
     /// <summary>
     /// Determine if 'word1' and 'word2' are anagrams.  An anagram
@@ -67,7 +113,42 @@ public static class SetsAndMaps
     public static bool IsAnagram(string word1, string word2)
     {
         // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+        // Remove spaces and convert to lowercase
+        word1 = word1.Replace(" ", "").ToLower();
+        word2 = word2.Replace(" ", "").ToLower();
+
+        // If lengths are different, they cannot be anagrams
+        if (word1.Length != word2.Length)
+            return false;
+
+        // Dictionary to count character frequencies
+        var counts = new Dictionary<char, int>();
+
+        // Count characters from the first word
+        foreach (var c in word1)
+        {
+            if (counts.ContainsKey(c))
+                counts[c]++;
+            else
+                counts[c] = 1;
+        }
+
+        // Subtract counts using the second word
+        foreach (var c in word2)
+        {
+            // If character not found, not an anagram
+            if (!counts.ContainsKey(c))
+                return false;
+
+            counts[c]--;
+
+            // If count goes negative, not an anagram
+            if (counts[c] < 0)
+                return false;
+        }
+
+        // All checks passed → words are anagrams
+        return true;
     }
 
     /// <summary>
